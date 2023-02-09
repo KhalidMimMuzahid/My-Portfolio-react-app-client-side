@@ -7,23 +7,23 @@ import { Link } from "react-scroll";
 import cloud from "../assets/cloudBg.png";
 import cloudDark from "../assets/cloudDark.png";
 import developerPNG from "../assets/images/developer cover photo PNG.png";
-const Home = () => {
+const Header = () => {
   const theme = useContext(ThemeContext);
   const darkMode = theme.state.darkMode;
-  const downloadResume = () => {
-    // using Java Script method to get PDF file
-    fetch("Khalid Mim Muzahid resume.pdf").then((response) => {
-      response.blob().then((blob) => {
-        // Creating new object of PDF file
-        const fileURL = window.URL.createObjectURL(blob);
-        // Setting various property values
-        let alink = document.createElement("a");
-        alink.href = fileURL;
-        alink.download = "Khalid Mim Muzahid resume.pdf";
-        alink.click();
-      });
-    });
-  };
+  // const downloadResume = () => {
+  //   // using Java Script method to get PDF file
+  //   fetch("Khalid Mim Muzahid resume.pdf").then((response) => {
+  //     response.blob().then((blob) => {
+  //       // Creating new object of PDF file
+  //       const fileURL = window.URL.createObjectURL(blob);
+  //       // Setting various property values
+  //       let alink = document.createElement("a");
+  //       alink.href = fileURL;
+  //       alink.download = "Khalid Mim Muzahid resume.pdf";
+  //       alink.click();
+  //     });
+  //   });
+  // };
   return (
     <>
       <div
@@ -72,6 +72,7 @@ const Home = () => {
             <div className="flex md:justify-start ">
               {contactLinks.map((el) => (
                 <a
+                  rel="noreferrer"
                   target="_blank"
                   href={el.link}
                   className="mr-5 cursor-pointer mt-8 hover:scale-125"
@@ -83,12 +84,20 @@ const Home = () => {
             </div>
             <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
               <div className="mt-3 sm:mt-0 cursor-pointer w-1/2">
-                <Link
+                {/* <Link
                   onClick={downloadResume}
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-200 md:py-4 md:text-lg md:px-10"
                 >
                   Resume
-                </Link>
+                </Link> */}
+                <a
+                  rel="noreferrer"
+                  href="https://drive.google.com/file/d/1kzy_mYXAwu0neBwzVf4i-eeJYCoRF0PL/view"
+                  target="_blank"
+                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-200 md:py-4 md:text-lg md:px-10"
+                >
+                  Resume
+                </a>
               </div>
             </div>
           </div>
@@ -115,4 +124,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Header;

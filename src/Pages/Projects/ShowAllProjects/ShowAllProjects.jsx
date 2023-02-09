@@ -1,13 +1,41 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import { useEffect } from "react";
+import Loader from "../../../Component/Loader/Loader";
 import EachProject from "./EachProject/EachProject";
 const ShowAllProjects = () => {
-  const [allProjects, setAllProjects] = useState([]);
-  useEffect(() => {
-    fetch("https://my-portfolio-snowy-zeta.vercel.app/projects")
-      .then((res) => res.json())
-      .then((data) => setAllProjects(data));
-  }, []);
+  // const [allProjects, setAllProjects] = useState([]);
+  // useEffect(() => {
+  //   fetch("https://my-portfolio-snowy-zeta.vercel.app/projects")
+  //     .then((res) => res.json())
+  //     .then((data) => setAllProjects(data));
+  // }, []);
+
+  const {
+    data: allProjects = [],
+    error,
+    isError,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      const res = await fetch(
+        "https://my-portfolio-snowy-zeta.vercel.app/projects"
+      );
+      const data = await res.json();
+      console.log(data);
+      return data;
+    },
+  });
+  if (isLoading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <div className="my-12">
       <h1 className="font-bold text-2xl text-center my-8">What i built</h1>

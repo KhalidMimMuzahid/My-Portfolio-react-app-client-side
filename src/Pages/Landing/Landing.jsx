@@ -1,10 +1,14 @@
 import React from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
 import About from "../../views/About";
 import Contact from "../../views/Contact";
-import Home from "../../views/Home";
+import Header from "../../views/Header";
 import Projects from "../../views/Projects";
-import Services from "../../views/Services";
+// import { useLoaderData, useNavigate } from "react-router-dom";
+// import About from "../../views/About";
+// import Contact from "../../views/Contact";
+// import Home from "../../views/Home";
+// import Projects from "../../views/Projects";
+// import Services from "../../views/Services";
 
 const Landing = () => {
   // const navigate = useNavigate();
@@ -14,7 +18,7 @@ const Landing = () => {
   // navigate(route);
   return (
     <div>
-      <Home />
+      <Header />
       <About />
       {/* <Services /> */}
       <Projects />

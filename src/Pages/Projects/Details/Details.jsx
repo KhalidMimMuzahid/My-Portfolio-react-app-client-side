@@ -5,10 +5,10 @@ const Details = () => {
   const project = useLoaderData();
   const {
     projectName,
-    objective,
+    objectives,
     systemFeatures,
     introduction,
-    toolsAndTechnology,
+    toolsAndTechnologies,
     thumbNail,
     clientSide,
     serverSide,
@@ -29,10 +29,10 @@ const Details = () => {
         <p>
           <span className="font-extrabold">Objective:</span>
           <ul className="list-disc ml-8">
-            {objective.map((eachObjective) => (
+            {objectives.map((eachObjective) => (
               <li
                 className=" text-justify"
-                key={objective.indexOf(eachObjective)}
+                key={objectives.indexOf(eachObjective)}
               >
                 {eachObjective}
               </li>
@@ -54,8 +54,8 @@ const Details = () => {
         </p>
         <p>
           <span className="font-extrabold">Tools and Technology:</span>{" "}
-          {toolsAndTechnology?.map((eachTools) => (
-            <span key={toolsAndTechnology.indexOf(eachTools)}>
+          {toolsAndTechnologies?.map((eachTools) => (
+            <span key={toolsAndTechnologies.indexOf(eachTools)}>
               {eachTools},{" "}
             </span>
           ))}{" "}

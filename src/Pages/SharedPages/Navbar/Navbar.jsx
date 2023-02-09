@@ -2,14 +2,20 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-scroll";
 import { ThemeContext } from "../../../themeProvider";
 import { motion, AnimatePresence } from "framer-motion";
+// import { BiMenu } from "@react-icons/all-files/Bi/BiMenu";
 import Hamburger from "hamburger-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import khalidMimMuzahid from "../../../assets/images/Khalid Mim Muzahid.jpg";
+import { HashLink } from "react-router-hash-link";
+import { MyContext } from "../../../contexts/MyProvider/MyProvider";
 const Navbar = ({ theme: daisyTheme, setTheme }) => {
+  const { currentUser } = useContext(MyContext);
   const theme = useContext(ThemeContext);
   const [toggle, setToggle] = useState(false);
   const darkMode = theme.state.darkMode;
   const navigate = useNavigate();
+  const location = useLocation();
+  // console.log(location?.pathname);
   const links = [
     {
       name: "Home",
@@ -17,7 +23,7 @@ const Navbar = ({ theme: daisyTheme, setTheme }) => {
     },
     {
       name: "About",
-      route: "/about",
+      route: "/#about",
     },
     // {
     //   name: "Services",
@@ -25,11 +31,11 @@ const Navbar = ({ theme: daisyTheme, setTheme }) => {
     // },
     {
       name: "Projects",
-      route: "/projects",
+      route: "/#project",
     },
     {
       name: "Contact",
-      route: "/contact",
+      route: "/#contact",
     },
     {
       name: "Blogs",
@@ -37,6 +43,23 @@ const Navbar = ({ theme: daisyTheme, setTheme }) => {
     },
   ];
 
+  const dashboard = (
+    <li className="cursor-pointer">
+      <HashLink
+        // onClick={() => handleClick(el.route)}
+        onClick={() => setToggle(false)}
+        to="/dashboard"
+        activeClass={"text-white bg-blue-500"}
+        className={
+          darkMode
+            ? "block py-2 px-3 text-black hover:bg-blue-500 hover:text-white rounded-md"
+            : "block py-2 px-3 text-white hover:bg-blue-500 hover:text-black rounded-md"
+        }
+      >
+        Dashboard
+      </HashLink>
+    </li>
+  );
   function toggleTheme() {
     if (darkMode === true) {
       theme.dispatch({ type: "LIGHTMODE" });
@@ -48,12 +71,12 @@ const Navbar = ({ theme: daisyTheme, setTheme }) => {
       setTheme("light");
     }
   }
-  const handleClick = (route, isMobileView = false) => {
-    if (isMobileView) {
-      setToggle(false);
-    }
-    navigate(route);
-  };
+  // const handleClick = (route, isMobileView = false) => {
+  //   if (isMobileView) {
+  //     setToggle(false);
+  //   }
+  //   navigate(route);
+  // };
   return (
     <>
       <nav
@@ -89,6 +112,28 @@ const Navbar = ({ theme: daisyTheme, setTheme }) => {
                 </h1>
               </div>
             </a>
+
+            {location?.pathname.startsWith("/dashboard") && (
+              <label
+                htmlFor="dashboard"
+                className="drawer-button  lg:hidden hover:cursor-pointer text-slate-100 ml-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-8 h-8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              </label>
+            )}
           </div>
           <div class="hidden justify-between items-center w-full md:flex md:w-auto ">
             <ul
@@ -98,9 +143,10 @@ const Navbar = ({ theme: daisyTheme, setTheme }) => {
             >
               {links.map((el) => (
                 <li className="cursor-pointer">
-                  <Link
-                    onClick={() => handleClick(el.route)}
-                    // to={el.route}
+                  <HashLink
+                    // onClick={() => handleClick(el.route)}
+                    onClick={() => setToggle(false)}
+                    to={el.route}
                     activeClass={"text-white bg-blue-500"}
                     className={
                       darkMode
@@ -109,9 +155,10 @@ const Navbar = ({ theme: daisyTheme, setTheme }) => {
                     }
                   >
                     {el.name}
-                  </Link>
+                  </HashLink>
                 </li>
               ))}
+              {currentUser && dashboard}
             </ul>
             <div onClick={() => toggleTheme()}>
               {darkMode ? (
@@ -173,9 +220,10 @@ const Navbar = ({ theme: daisyTheme, setTheme }) => {
           >
             <ul class="md:hidden md:flex-row md:space-y-8 md:mt-0 md:text-md md:font-medium">
               {links.map((el) => (
-                <Link
-                  onClick={() => handleClick(el.route, true)}
-                  // to={el.route}
+                <HashLink
+                  // onClick={() => handleClick(el.route, true)}
+                  onClick={() => setToggle(false)}
+                  to={el.route}
                   activeClass={"text-white bg-blue-500"}
                   className={
                     darkMode
@@ -186,8 +234,9 @@ const Navbar = ({ theme: daisyTheme, setTheme }) => {
                   smooth={true}
                 >
                   <li>{el.name}</li>
-                </Link>
+                </HashLink>
               ))}
+              {dashboard}
             </ul>
           </motion.div>
         )}

@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const EachProject = ({ eachProject }) => {
   const {
     projectName,
-    objective,
+    objectives,
     systemFeatures,
     introduction,
-    toolsAndTechnology,
+    toolsAndTechnologies,
     thumbNail,
     _id,
   } = eachProject;
